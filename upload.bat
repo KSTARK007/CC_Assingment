@@ -11,17 +11,18 @@ echo.
 echo.
 pause
 cls
+echo.
 git add .
 echo added
 echo.
+echo.
+pause
+cls
 echo commiting
-echo.
-pause
-cls
 git commit -m %v%
-echo uploading
 echo.
 pause
 cls
+echo uploading
 git push
 pause
