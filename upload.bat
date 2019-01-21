@@ -2,7 +2,7 @@
 echo updating the github account enter the update string
 echo.
 echo.
-SET /P v=[enter the update string]
+SET /P v=
 git status
 echo.
 echo.
