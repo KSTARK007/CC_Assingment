@@ -1,12 +1,15 @@
 @echo off
-echo "updating the github account enter the update string"
-SET /P v=[promptString]
+echo updating the github account enter the update string
+echo .........
+SET /P v=[enter the update string]
 git status
 pause
 git add .
-echo "added"
-echo "commiting"
+echo added .....
+echo ......
+echo commiting
+echo ......
 git commit -m %v%
-echo "uploading"
+echo uploading ....
 git push
 pause
