@@ -16,6 +16,6 @@ echo.
 git commit -m %v%
 echo uploading
 echo.
-pasue
+pause
 git push
 pause
