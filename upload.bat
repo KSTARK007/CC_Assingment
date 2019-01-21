@@ -9,12 +9,13 @@ echo.
 echo.
 pause
 git add .
-echo added .....
+echo added
 echo.
 echo commiting
 echo.
 git commit -m %v%
-echo uploading ....
+echo uploading
 echo.
+pasue
 git push
 pause
