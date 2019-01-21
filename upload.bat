@@ -1,3 +1,4 @@
+@echo off
 echo "updating the github account enter the update string"
 SET /P v=[promptString]
 git status
