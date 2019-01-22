@@ -1,172 +1,193 @@
-/* =================================
-------------------------------------
-	ProDent - Dentist Template
-	Version: 1.0
- ------------------------------------
- ====================================*/
+
+$(document).ready(function(){
+	"use strict";
+
+	var window_width 	 = $(window).width(),
+	window_height 		 = window.innerHeight,
+	header_height 		 = $(".default-header").height(),
+	header_height_static = $(".site-header.static").outerHeight(),
+	fitscreen 			 = window_height - header_height;
 
 
-'use strict';
+	// $(window).on('load', function() {
+ //        // Animate loader off screen
+ //        $(".preloader").fadeOut("slow");;
+ //    });
+	
+	$(".fullscreen").css("height", window_height)
+	$(".fitscreen").css("height", fitscreen);
 
+    //-------- Active Sticky Js ----------//
+     $(".sticky-header").sticky({topSpacing:0});
+     
+     // -------   Active Mobile Menu-----//
 
-$(window).on('load', function() {
-	/*------------------
-		Preloder
-	--------------------*/
-	$(".loader").fadeOut();
-	$("#preloder").delay(400).fadeOut("slow");
+     $(".mobile-btn").on('click', function(e){
+        e.preventDefault();
+        $(".main-menu").slideToggle();
+        $("span", this).toggleClass("lnr-menu lnr-cross");
+        $(".main-menu").addClass('mobile-menu');
+    });
+     $(".main-menu li a").on('click', function(e){
+        e.preventDefault();
+        $(".mobile-menu").slideUp();
+        $(".mobile-btn span").toggleClass("lnr-menu lnr-cross");
+    });
+     
 
-});
+    // $(function(){
+    //     $('#Container').mixItUp();
+    // });
+    var mixer = mixitup('#filter-content');
+    $(".controls .filter").on('click', function(event){
+        $(".controls .filter").removeClass('active');
+        $(this).addClass('active');
+    });
+    // Add smooth scrolling to Menu links
+         $(".main-menu li a, .smooth").on('click', function(event) {
+                if (this.hash !== "") {
+                  event.preventDefault();
+                  var hash = this.hash;
+                  $('html, body').animate({
+                    scrollTop: $(hash).offset().top - (-10)
+                }, 600, function(){
+                 
+                    window.location.hash = hash;
+                });
+            } 
+        });
 
-(function($) {
-	/*------------------
-		Navigation
-	--------------------*/
-	$('.nav-switch').on('click', function(event) {
-		$(this).toggleClass('active');
-		$('.nav-warp').slideToggle(400);
-		event.preventDefault();
-	});
+    $('.active-testimonial-carousel').owlCarousel({
+        loop:true,
+        dot: true,
+        items: 3,
+        margin: 30,
+        autoplay:true,
+        autoplayTimeout:3000,
+        autoplayHoverPause:true,
+        animateOut: 'fadeOutLeft',
+        animateIn: 'fadeInRight',
+        responsive:{
+            0:{
+                items:1,
+            },
+            600:{
+                items:3,
+             }
+        }
+    })
+     // -------   Mail Send ajax
 
+     $(document).ready(function() {
+        var form = $('#myForm'); // contact form
+        var submit = $('.submit-btn'); // submit button
+        var alert = $('.alert'); // alert div for show alert message
 
-	/*------------------
-		Background Set
-	--------------------*/
-	$('.set-bg').each(function() {
-		var bg = $(this).data('setbg');
-		$(this).css('background-image', 'url(' + bg + ')');
-	});
+        // form submit event
+        form.on('submit', function(e) {
+            e.preventDefault(); // prevent default form submit
 
+            $.ajax({
+                url: 'mail.php', // form action url
+                type: 'POST', // form submit method get/post
+                dataType: 'html', // request type html/json/xml
+                data: form.serialize(), // serialize form data
+                beforeSend: function() {
+                    alert.fadeOut();
+                    submit.html('Sending....'); // change submit button text
+                },
+                success: function(data) {
+                    alert.html(data).fadeIn(); // fade in response data
+                    form.trigger('reset'); // reset form
+                    submit.html(''); // reset submit button text
+                },
+                error: function(e) {
+                    console.log(e)
+                }
+            });
+        });
+    });
 
-	/*------------------
-		Progress Bar
-	--------------------*/
-	$('.progress-bar-style').each(function() {
-		var progress = $(this).data("progress");
-		var bgcolor = $(this).data("bgcolor");
-		var prog_width = progress + '%';
-		if (progress <= 100) {
-			$(this).append('<div class="bar-inner" style="width:' + prog_width + '; background: '+ bgcolor +';"><span>' + prog_width + '</span></div>');
-		}
-		else {
-			$(this).append('<div class="bar-inner" style="width:100%; background: '+ bgcolor +';"><span>100%</span></div>');
-		}
-	});
+     $(document).ready(function() {
+        $('#mc_embed_signup').find('form').ajaxChimp();
+    });
+ });
+(function ($){
 
+    $.fn.bekeyProgressbar = function(options){
 
+        options = $.extend({
+            animate     : true,
+          animateText : true
+        }, options);
 
+        var $this = $(this);
+      
+        var $progressBar = $this;
+        var $progressCount = $progressBar.find('.progressBar-percentage-count');
+        var $circle = $progressBar.find('.progressBar-circle');
+        var percentageProgress = $progressBar.attr('data-progress');
+        var percentageRemaining = (100 - percentageProgress);
+        var percentageText = $progressCount.parent().attr('data-progress');
+      
+        //Calcule la circonférence du cercle
+        var radius = $circle.attr('r');
+        var diameter = radius * 2;
+        var circumference = Math.round(Math.PI * diameter);
 
-	/*------------------
-		Testimonials
-	--------------------*/
-	$('.testimonials-slider').owlCarousel({
-		loop: true,
-		nav: false,
-		dots: true,
-		margin: 128,
-		center:true,
-		items: 1,
-		mouseDrag: false,
-		animateOut: 'fadeOutRight',
-		animateIn: 'fadeInLeft',
-		autoplay:true
-	});
+        //Calcule le pourcentage d'avancement
+        var percentage =  circumference * percentageRemaining / 100;
 
+        $circle.css({
+          'stroke-dasharray' : circumference,
+          'stroke-dashoffset' : percentage
+        })
+        
+        //Animation de la barre de progression
+        if(options.animate === true){
+          $circle.css({
+            'stroke-dashoffset' : circumference
+          }).animate({
+            'stroke-dashoffset' : percentage
+          }, 3000 )
+        }
+        
+        //Animation du texte (pourcentage)
+        if(options.animateText == true){
+ 
+          $({ Counter: 0 }).animate(
+            { Counter: percentageText },
+            { duration: 3000,
+             step: function () {
+               $progressCount.text( Math.ceil(this.Counter) + '%');
+             }
+            });
 
-	/*------------------
-		Brands Slider
-	--------------------*/
-	$('.brands-slider').owlCarousel({
-		loop: true,
-		nav: false,
-		dots: false,
-		margin : 40,
-		autoplay: true,
-		responsive : {
-			0 : {
-				items: 1,
-			},
-			480 : {
-				items: 2,
-			},
-			768 : {
-				items: 4,
-			},
-			1200 : {
-				items: 5,
-			}
-		}
-	});
-
-
-
-	/*------------------
-		Popular Services
-	--------------------*/
-	$('.popular-services-slider').owlCarousel({
-		loop: true,
-		dots: false,
-		margin : 40,
-		autoplay: true,
-		nav:true,
-		navText:['<i class="fa fa-angle-left"></i>','<i class="fa fa-angle-right"></i>'],
-		responsive : {
-			0 : {
-				items: 1,
-			},
-			768 : {
-				items: 2,
-			},
-			991: {
-				items: 3
-			}
-		}
-	});
-
-
-	/*------------------
-		Accordions
-	--------------------*/
-	$('.panel-link').on('click', function (e) {
-		$('.panel-link').removeClass('active');
-		var $this = $(this);
-		if (!$this.hasClass('active')) {
-			$this.addClass('active');
-		}
-		e.preventDefault();
-	});
-
-
-	/*------------------
-		Circle progress
-	--------------------*/
-	$('.circle-progress').each(function() {
-		var cpvalue = $(this).data("cpvalue");
-		var cpcolor = $(this).data("cpcolor");
-		var cptitle = $(this).data("cptitle");
-		var cpid 	= $(this).data("cpid");
-
-		$(this).append('<div class="'+ cpid +' loader-circle"></div><div class="progress-info"><h2>'+ cpvalue +'%</h2><p>'+ cptitle +'</p></div>');
-
-		if (cpvalue < 100) {
-
-			$('.' + cpid).circleProgress({
-				value: '0.' + cpvalue,
-				size: 110,
-				thickness: 7,
-				fill: cpcolor,
-				emptyFill: "rgba(0, 0, 0, 0)"
-			});
-		} else {
-			$('.' + cpid).circleProgress({
-				value: 1,
-				size: 110,
-				thickness: 7,
-				fill: cpcolor,
-				emptyFill: "rgba(0, 0, 0, 0)"
-			});
-		}
-
-	});
+        }else{
+          $progressCount.text( percentageText + '%');
+        }
+      
+    };
 
 })(jQuery);
+
+$(document).ready(function(){
+  
+  $('.progressBar--animateNone').bekeyProgressbar({
+    animate : false,
+    animateText : false
+  });
+  
+  $('.progressBar--animateCircle').bekeyProgressbar({
+    animate : true,
+    animateText : false
+  });
+  
+  $('.progressBar--animateText').bekeyProgressbar({
+    animate : false,
+    animateText : true
+  });
+  
+  $('.progressBar--animateAll').bekeyProgressbar();
+  
+})
