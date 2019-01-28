@@ -787,41 +787,6 @@ td, th {
   width: 150px;
 }
 
-.progressBar-circle,
-.progressBar-background {
-  fill: none;
-  stroke: #777777;
-  stroke-width: 5;
-  stroke-linecap: round;
-  stroke-dasharray: 0;
-  stroke-dashoffset: 0;
-  position: relative;
-  z-index: 10;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-}
-
-.progressBar-background {
-  stroke: #f9f9ff;
-  stroke-width: 4;
-  z-index: 0;
-}
-
-.progressBar-percentage {
-  color: #222222;
-  font-size: 24px;
-  text-align: center;
-  width: 100%;
-  display: table-cell;
-  vertical-align: middle;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-}
-
 /************************/
 /* structure de la page */
 /************************/
@@ -843,50 +808,6 @@ td, th {
   height: 150px;
   width: 150px;
   margin-bottom: 20px;
-}
-
-.details-btn {
-  border: 1px solid #00ff8c;
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: hidden;
-}
-
-.details-btn .details {
-  visibility: hidden;
-  opacity: 0;
-  margin-left: -53px;
-  font-weight: 600;
-  text-transform: uppercase;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.details-btn:hover {
-  width: 140px;
-  background: #00ff8c;
-  box-shadow: 0px 10px 20px 0px rgba(60, 64, 143, 0.2);
-}
-
-.details-btn:hover .details {
-  margin-left: 0;
-  visibility: visible;
-  opacity: 1;
-  margin-right: 20px;
-}
-
-.details-btn:hover span {
-  color: #fff;
-  font-weight: 600;
 }
 
 .default-header {
@@ -980,120 +901,6 @@ td, th {
   background: linear-gradient(to right, rgba(60, 64, 143, 0.95) 0%, rgba(91, 97, 207, 0.95) 100%);
 }
 
-.search {
-  padding: 6px 20px;
-  border-right: 1px solid rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-}
-
-.search span {
-  color: #fff;
-}
-
-.search:hover .search-field {
-  transform: scaleY(1) !important;
-}
-
-@media (max-width: 767px) {
-  .search {
-    margin-right: 60px;
-  }
-}
-
-.search-field {
-  transform: scaleY(0);
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-  position: absolute;
-  top: -13px;
-  right: -2px;
-}
-
-.search-field:hover {
-  transform: scaleY(1) !important;
-}
-
-.search-field input {
-  line-height: 60px;
-  background: #4a4fad;
-  width: 600px;
-  border: none;
-  color: #fff;
-  padding: 0 70px 0 25px;
-  font-weight: 400;
-}
-
-@media (max-width: 991px) {
-  .search-field input {
-    width: 400px;
-  }
-}
-
-@media (max-width: 767px) {
-  .search-field input {
-    width: 300px;
-  }
-}
-
-@media (max-width: 575px) {
-  .search-field input {
-    width: 200px;
-  }
-}
-
-.search-field .search-submit {
-  width: 60px;
-  height: 60px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.search-field .search-submit span {
-  color: #fff;
-}
-
-.header-social {
-  margin-left: 20px;
-}
-
-@media (max-width: 767px) {
-  .header-social {
-    display: none !important;
-  }
-}
-
-.header-social a {
-  margin: 0 5px;
-  padding: 0 5px;
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.header-social a:hover {
-  color: #00ff8c;
-}
-
-.footer-social {
-  margin-right: -5px;
-}
-
-.footer-social a {
-  font-size: 18px;
-  margin: 0 5px;
-  padding: 0 5px;
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.footer-social a:hover {
-  color: #00ff8c;
-}
 
 .banner-area {
   background: url(../img/banner.jpg) no-repeat center center/cover;
@@ -1268,6 +1075,10 @@ td, th {
 
 .single-filter-content.content-8 {
   background: url(../img/c8.jpg) no-repeat center center/cover;
+}
+
+.single-filter-content.main {
+  background: no-repeat center center/cover;
 }
 
 .single-member {
